@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Keberhasilan Mahasiswa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Prediksi Keberhasilan Mahasiswa</h1>
+
+        <!-- Form Input untuk Pengguna -->
+        <form method="POST">
+            <label for="n">Jumlah Mahasiswa yang Mengikuti Ujian:</label>
+            <input type="number" name="n" id="n" required min="1" value="{{ n }}">
+
+            <label for="k">Jumlah Mahasiswa yang Lulus Ujian:</label>
+            <input type="number" name="k" id="k" required min="0" value="{{ k }}">
+
+            <label for="p">Probabilitas Kelulusan (misalnya 0.75):</label>
+            <input type="number" step="0.01" name="p" id="p" required min="0" max="1" value="{{ p }}">
+
+            <button type="submit">Hitung Probabilitas</button>
+        </form>
+
+        {% if probability is not none %}
+            <h2>Hasil Perhitungan:</h2>
+            <p><strong>Jumlah Mahasiswa yang Mengikuti Ujian:</strong> {{ n }}</p>
+            <p><strong>Jumlah Mahasiswa yang Lulus Ujian:</strong> {{ k }}</p>
+            <p><strong>Probabilitas Kelulusan:</strong> {{ p }}</p>
+
+            <!-- Menampilkan Rumus yang Digunakan -->
+            <p><strong>Rumus Distribusi Binomial:</strong></p>
+            <script type="math/tex">
+                P(X = k) = C(n, k) \cdot p^k \cdot (1 - p)^{n - k}
+            </script>
+
+            <p><strong>Rumus yang Digunakan:</strong></p>
+            <p>{{ formula }}</p>
+
+            <p><strong>Probabilitas Keberhasilan:</strong> {{ probability }}</p>
+        {% endif %}
+    </div>
+</body>
